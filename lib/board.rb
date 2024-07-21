@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Creates new board object to play game
 class Board
   WIN_COMB = [
     [0, 3, 6], [1, 4, 7], [2, 5, 8], # vertical

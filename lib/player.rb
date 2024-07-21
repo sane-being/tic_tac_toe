@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Creates player objects
 class Player
   attr_accessor :name, :mark
 

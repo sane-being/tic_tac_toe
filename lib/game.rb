@@ -3,20 +3,21 @@
 require_relative 'player'
 require_relative 'board'
 
+# Creates Game object which is a new round of game.
 class Game
-  attr_accessor :board, :player_1, :player_2
+  attr_accessor :board, :player1, :player2
 
   def initialize(p_1_name, p_2_name)
     @board = Board.new
-    @player_1 = Player.new(p_1_name, 'X')
-    @player_2 = Player.new(p_2_name, 'O')
+    @player1 = Player.new(p_1_name, 'X')
+    @player2 = Player.new(p_2_name, 'O')
   end
 
   def play
-    puts "#{player_1.name} will play with 'X'"
-    puts "#{player_2.name} will play with 'O'"
+    puts "#{player1.name} will play with 'X'"
+    puts "#{player2.name} will play with 'O'"
     loop do
-      [player_1, player_2].each do |player|
+      [player1, player2].each do |player|
         board.print
         puts "#{player.name}'s turn, input index:"
         begin
@@ -29,7 +30,7 @@ class Game
 
         board.print
         puts "#{player.name} has WON the game!!"
-        return
+        return player
       end
     end
   end
