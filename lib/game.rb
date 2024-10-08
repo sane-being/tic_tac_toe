@@ -7,30 +7,41 @@ require_relative 'board'
 class Game
   attr_accessor :board, :player1, :player2
 
-  def initialize(p_1_name, p_2_name)
+  def initialize
     @board = Board.new
-    @player1 = Player.new(p_1_name, 'X')
-    @player2 = Player.new(p_2_name, 'O')
+    @player1 = Player.new(input_name(1), :X)
+    @player2 = Player.new(input_name(2), :O)
+    puts player1
+    puts player2
+  end
+
+  def input_name(num)
+    puts "Enter player #{num} name:"
+    gets.chomp
+  end
+
+  def take_turn_input(player)
+    puts board
+    puts "#{player.name}'s turn (#{player.mark}), input index to make a move:"
+    begin
+      board.player_turn(gets.to_i - 1, player.mark)
+    rescue StandardError => e
+      puts e.message
+      retry
+    end
+  end
+
+  def declare_winner(player)
+    puts board
+    puts "#{player.name} has WON the game!!"
+    player
   end
 
   def play
-    puts "#{player1.name} will play with 'X'"
-    puts "#{player2.name} will play with 'O'"
     loop do
       [player1, player2].each do |player|
-        board.print
-        puts "#{player.name}'s turn, input index:"
-        begin
-          board.player_turn(gets.to_i - 1, player.mark)
-        rescue StandardError => e
-          puts e.message
-          retry
-        end
-        next if board.check_for_win.nil?
-
-        board.print
-        puts "#{player.name} has WON the game!!"
-        return player
+        take_turn_input(player)
+        return declare_winner(player) if board.player_won?
       end
     end
   end

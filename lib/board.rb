@@ -18,20 +18,20 @@ class Board
     @board[index] = mark
   end
 
-  def check_for_win
+  def player_won?
     WIN_COMB.each do |array|
       arr = array.map { |i| @board[i] }
       arr = arr.uniq
       next unless arr.size == 1
       next if arr[0] == ' '
 
-      return arr[0]
+      return true
     end
-    nil
+    false
   end
 
-  def print
-    puts "
+  def to_s
+    "
     -----------
      #{@board[0]} | #{@board[1]} | #{@board[2]}
     -----------

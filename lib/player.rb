@@ -8,4 +8,8 @@ class Player
     @name = name
     @mark = mark
   end
+
+  def to_s
+    "#{@name} will play with '#{@mark}'"
+  end
 end
